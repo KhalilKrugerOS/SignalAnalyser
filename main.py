@@ -20,8 +20,8 @@ def read_data_from_cmd():
 
 def wifi_signal_power_analyser():
        ## the read_data function result in a list containing 1 tuple of 2 els
-        power_max = 100
-        power_min = 0        
+        power_max = 0
+        power_min = -99        
         while True:
             result = read_data_from_cmd()
             try:
