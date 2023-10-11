@@ -1,29 +1,30 @@
 from datetime import datetime
 import matplotlib.pyplot as plt
-from random import randrange
 from matplotlib.animation import FuncAnimation
-import numpy as np
 from analysis import signal_analysis
-# from analysis import signal_analysis
+
+sa = signal_analysis()
 
 
-class test_speed:
-    def __init__(self, x_data, y_data):
-        x_data = self.x_data
-        self.y_data = y_data
-        x_data = []
-        y_data = []
-        figure = plt.figure()
-        line, = plt.plot_date(x_data, y_data, '-')
+class speed_test:
+    def __init__(self):
+        self.x_data = []
+        self.y_data = []
+        self.figure = plt.figure()
+        self.line, = plt.plot_date(self.x_data, self.y_data, '-')
 
-    def update(self, figure):
+    def update(self, frame):
         self.x_data.append(datetime.now())
-        self.y_data.append(randrange(0, 100))
+        self.y_data.append(sa.one_signal_power_dbm('Infinix SMART 5'))
         self.line.set_data(self.x_data, self.y_data)
-        figure.gca().relim()
-        figure.gca().autoscale_view()
-        return line,
+        self.figure.gca().relim()
+        self.figure.gca().autoscale_view()
+        return self.line,
 
     def show_graph(self):
-        animation = FuncAnimation(figure, update, interval=200)
+        animation = FuncAnimation(self.figure, self.update, interval=200)
         plt.show()
+
+
+ts = speed_test()
+ts.show_graph()
