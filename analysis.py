@@ -34,7 +34,11 @@ class signal_analysis:
                 signal_percent_mesured = int(network[1])
                 signal_power_dbm = power_max - \
                     (1 - signal_percent_mesured/100)*(power_max - power_min)
-                print(
+                return signal_power_dbm
+
+    '''def print_wifi_power_analysis(self):
+            
+            print(
                     f"Signal name = {signal_name} : power = {signal_power_dbm}dbm\n")
             print("update ... ")
-            time.sleep(5)
+            time.sleep(5)'''
