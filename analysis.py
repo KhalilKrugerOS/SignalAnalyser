@@ -22,9 +22,10 @@ class signal_analysis:
         return m
 
     def wifi_signal_power_analyser(self):
-       # the read_data function result in a list containing 1 tuple of 2 els
-        power_max = 0
         power_min = -99
+        power_max = 0
+       # the read_data function result in a list containing 1 tuple of 2 els
+
         while True:
             networks = self.read_data_from_cmd()
             if len(networks) == 0:
@@ -34,11 +35,25 @@ class signal_analysis:
                 signal_percent_mesured = int(network[1])
                 signal_power_dbm = power_max - \
                     (1 - signal_percent_mesured/100)*(power_max - power_min)
-                return signal_power_dbm
-
-    '''def print_wifi_power_analysis(self):
-            
-            print(
+                print(
                     f"Signal name = {signal_name} : power = {signal_power_dbm}dbm\n")
             print("update ... ")
-            time.sleep(5)'''
+            time.sleep(5)
+
+    def list_wifi_names(self):
+        names = []
+        signals = self.read_data_from_cmd()
+        for signal in signals:
+            names.append(signal[0])
+        return names
+
+    def one_signal_power_dbm(self, signal_name):
+        if signal_name not in self.list_wifi_names():
+            raise Exception("not available")
+        for network in self.read_data_from_cmd():
+            if network[0] == signal_name:
+                power_min = -99
+                power_max = 0
+                signal_power_dbm = power_max - \
+                    (1 - int(network[1])/100)*(power_max - power_min)
+                return signal_power_dbm
