@@ -5,7 +5,7 @@ import platform
 
 
 class signal_analysis:
-
+    
     def read_data_from_cmd(self):
         p = subprocess.Popen("netsh wlan show network mode=bssid interface=\"wi-fi\"",
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
